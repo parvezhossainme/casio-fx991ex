@@ -656,48 +656,49 @@
   outline-offset: 1px;
 }
 
-@media (max-width: 400px) {
+/*
+ * Phone-sized viewports: fill the screen instead of sitting at the desktop width cap. The
+ * keypad keeps its full-size keys here -- an earlier narrow-window shrink left a 360px screen
+ * with a small, squat calculator. Any vertical overflow simply scrolls.
+ */
+@media (max-width: 480px) {
   .calc-page {
-    padding: 0.75rem 0.6rem 1rem;
+    padding: 0.75rem 0.5rem 1rem;
   }
-  .calc-key {
-    min-height: 1.55rem;
-    border-radius: 0.3rem;
-  }
-  .calc-key--numeric .calc-key-label {
-    font-size: 0.78rem;
-  }
-  .calc-legend {
-    font-size: 0.4rem;
+  .calc-case {
+    width: 100%;
   }
 }
 
 /*
  * The case is ~660px tall, so on shorter windows the bottom key row would be pushed past the
- * fold. Scale the whole calculator down instead, so every key stays on screen. Where `zoom`
- * is unsupported the page simply scrolls, which is still usable.
+ * fold. Scale the whole calculator down instead, so every key stays on screen. This only
+ * applies to wide-and-short windows (desktop, landscape): a portrait phone is already tall
+ * relative to its width, and shrinking it there just leaves it small and adrift in the middle
+ * of the screen -- the case fills the width instead. Where `zoom` is unsupported the page
+ * simply scrolls, which is still usable.
  */
-@media (max-height: 820px) {
+@media (min-width: 641px) and (max-height: 820px) {
   .calc-case {
     zoom: 0.94;
   }
 }
-@media (max-height: 760px) {
+@media (min-width: 641px) and (max-height: 760px) {
   .calc-case {
     zoom: 0.86;
   }
 }
-@media (max-height: 700px) {
+@media (min-width: 641px) and (max-height: 700px) {
   .calc-case {
     zoom: 0.78;
   }
 }
-@media (max-height: 640px) {
+@media (min-width: 641px) and (max-height: 640px) {
   .calc-case {
     zoom: 0.7;
   }
 }
-@media (max-height: 560px) {
+@media (min-width: 641px) and (max-height: 560px) {
   .calc-case {
     zoom: 0.62;
   }
