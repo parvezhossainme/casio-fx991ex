@@ -1,0 +1,57 @@
+Third-party notices
+===================
+
+This project ("Casio fx-991EX ClassWiz — Web Emulator") is an independent educational work.
+All original code in this repository is licensed under the MIT licence (see LICENSE).
+
+The following third-party packages are used. No third-party calculator source code was copied
+into this project (see docs/DISCLAIMER.md and docs/RESEARCH.md).
+
+Runtime dependencies
+--------------------
+
+mathjs
+  Licence: Apache License 2.0
+  https://github.com/josdejong/mathjs
+  Used for expression parsing and numerical evaluation. Apache-2.0 requires that this notice and
+  the licence text be preserved when redistributing.
+
+class-variance-authority  — MIT — https://github.com/joe-bell/cva
+clsx                      — MIT — https://github.com/lukeed/clsx
+tailwind-merge            — MIT — https://github.com/dcastil/tailwind-merge
+lucide-react              — ISC — https://github.com/lucide-icons/lucide
+next                      — MIT — https://github.com/vercel/next.js
+react / react-dom         — MIT — https://github.com/facebook/react
+@base-ui/react            — MIT — https://github.com/mui/base-ui
+tw-animate-css            — MIT — https://github.com/Wombosvideo/tw-animate-css
+
+Development dependencies
+------------------------
+
+typescript                — Apache-2.0 — https://github.com/microsoft/TypeScript
+tailwindcss               — MIT — https://github.com/tailwindlabs/tailwindcss
+eslint / eslint-config-next — MIT — https://github.com/eslint/eslint, https://github.com/vercel/next.js
+vitest                    — MIT — https://github.com/vitest-dev/vitest
+@vitejs/plugin-react      — MIT — https://github.com/vitejs/vite-plugin-react
+jsdom                     — MIT — https://github.com/jsdom/jsdom
+@testing-library/*        — MIT — https://github.com/testing-library
+prettier                  — MIT — https://github.com/prettier/prettier
+@playwright/test          — Apache-2.0 — https://github.com/microsoft/playwright
+
+Inspected but not reused
+------------------------
+
+The following repositories were reviewed during research and are NOT part of this project in any
+form. The GitHub API reports no licence for each of them ("all rights reserved"):
+
+  - https://github.com/Akhinoor14/fx991exCalculator
+  - https://github.com/Akhinoor14/fx991ex
+  - https://github.com/eliyas2199/casio-fx-991EX-ui-clone
+  - https://github.com/VincentCapek/vue-scientific-calculator
+
+Trademarks
+----------
+
+"Casio", "ClassWiz" and "fx-991EX" are trademarks of Casio Computer Co., Ltd. They are used in this
+project solely to describe compatibility and are not claimed by the authors. This project is not
+affiliated with or endorsed by Casio.

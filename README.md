@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Casio fx-991EX ClassWiz — Web Emulator
 
-## Getting Started
+A production-quality, **browser-only** scientific calculator emulator inspired by the
+Casio fx-991EX ClassWiz, built with Next.js, React, TypeScript and Tailwind CSS.
 
-First, run the development server:
+> **Educational project. Not affiliated with, endorsed by, or produced by Casio.** The device's
+> firmware is not emulated and no Casio assets are redistributed. See
+> [`docs/DISCLAIMER.md`](docs/DISCLAIMER.md).
+
+Everything runs locally in the browser — no backend, account, database, API key or paid service.
+
+---
+
+## Features
+
+- **12 calculation modes** with working operations and their own workspaces:
+  Calculate · Complex · Base-N · Matrix · Vector · Statistics · Distribution · Spreadsheet ·
+  Table · Equation/Func · Inequality · Ratio.
+- **Natural-textbook display** — stacked fractions, superscript powers, radicals with an overline,
+  logarithm bases, integral/summation bounds — rendered structurally, never as a plain string.
+- **Physical keypad** with SHIFT/ALPHA/HYP legends, colour-coded secondary functions, cursor
+  editing (DEL / AC / INS), REPLAY history and a pale-green LCD with status indicators.
+- **Full physical-keyboard support** and a scrollable history, with preferences persisted to
+  `localStorage`.
+- **A typed, React-free math engine** with a tolerant parser, explicit Casio-style error taxonomy,
+  10-digit display formatting, exact-form (S⇔D) handling, and numerical ∫ / d-dx / Σ / SOLVE.
+- **101 unit tests and 36 end-to-end tests** passing across desktop and mobile viewports.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>. Press `7 × 8 =` on the keypad (or type it) — you should see `56`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command                    | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| `npm run dev`              | Start the development server                |
+| `npm run build`            | Production build                            |
+| `npm run start`            | Serve the production build                  |
+| `npm run lint`             | ESLint                                      |
+| `npm run typecheck`        | TypeScript, `--noEmit`                      |
+| `npm test`                 | Vitest unit tests                           |
+| `npm run test:coverage`    | Unit tests with coverage                    |
+| `npm run test:e2e`         | Playwright end-to-end tests                 |
+| `npm run test:e2e:install` | Install the Chromium browser for Playwright |
+| `npm run format`           | Prettier                                    |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/                     routes, layout, global styles
+components/
+  calculator/            body, LCD, keypad, keys, MODE/SETUP menus, shell
+  display/               natural-textbook expression renderer
+  modes/                 one workspace panel per mode
+  ui/                    shadcn/ui primitives
+lib/
+  engine/                tokens, parser, serializer, evaluator, formatting, numerics
+  modes/                 pure logic for the mode-specific features
+  keyboard/              keymap registry, physical-keyboard listener, input routing
+hooks/                   calculator reducer with localStorage persistence
+types/                   shared application types
+tests/unit/              Vitest tests
+tests/e2e/               Playwright tests
+docs/                    research, architecture, feature matrix, deployment, disclaimer
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Details of the engine and data flow are in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md); an honest
+per-feature status table is in [`docs/FEATURE_MATRIX.md`](docs/FEATURE_MATRIX.md).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Keyboard shortcuts
 
-## Deploy on Vercel
+| Keys                        | Action                           |
+| --------------------------- | -------------------------------- |
+| `0`–`9`, `.`, `,`           | Digits, decimal point, separator |
+| `+` `-` `*` `/` `^` `(` `)` | Operators and parentheses        |
+| `Enter` or `=`              | Evaluate                         |
+| `Backspace` / `Delete`      | Delete before the cursor         |
+| `Escape`                    | All clear                        |
+| `←` `→`                     | Move the cursor                  |
+| `↑` `↓`                     | Replay previous calculations     |
+| `p` `q`                     | π and square root                |
+| `s` `c` `t`                 | sin, cos, tan                    |
+| `l` `n`                     | log and ln                       |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Modifier combinations (`Ctrl`/`Cmd`/`Alt`) and unmapped keys are never intercepted, so normal
+browser shortcuts keep working.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Modes at a glance
+
+| Mode          | Highlights                                                                |
+| ------------- | ------------------------------------------------------------------------- |
+| Calculate     | Arithmetic, scientific functions, fractions, memory, ∫ / d-dx / Σ, SOLVE  |
+| Complex       | `a+bi` arithmetic, modulus, argument, conjugate, Re/Im                    |
+| Base-N        | DEC/HEX/OCT/BIN, bitwise logic, shifts, 32-bit two's-complement display   |
+| Matrix        | 1×1–4×4, add/subtract/multiply, determinant, inverse, transpose, identity |
+| Vector        | 2D/3D, sum, difference, dot, cross, magnitude, angle, unit vector         |
+| Statistics    | 1-variable statistics and linear regression                               |
+| Distribution  | Normal (pdf/cdf/inverse), binomial, Poisson                               |
+| Spreadsheet   | Cells, formulas, references, ranges, SUM/AVERAGE/MIN/MAX/COUNT            |
+| Table         | f(X) over a start/end/step                                                |
+| Equation/Func | Simultaneous linear systems (2/3/4) and polynomials (degree 2/3/4)        |
+| Inequality    | Quadratic and cubic polynomial inequalities with interval output          |
+| Ratio         | `a : b = c : d` solving and simplification                                |
+
+## Tech stack
+
+Next.js (App Router) · React · TypeScript (strict) · Tailwind CSS v4 · shadcn/ui ·
+[mathjs](https://mathjs.org) for expression evaluation · Vitest · Playwright.
+
+## Deployment
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md). In short: push to GitHub, import the repository into
+Vercel, accept the auto-detected settings and deploy. No environment variables are needed.
+
+## Licence and attribution
+
+Original code is released under the [MIT licence](LICENSE). Research notes and the third-party
+licence list are in [`docs/RESEARCH.md`](docs/RESEARCH.md) and [`NOTICE`](NOTICE).
