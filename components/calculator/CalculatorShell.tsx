@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 import { Keypad } from "./Keypad";
 import { LCD } from "./LCD";
+import { IntroOverlay } from "./IntroOverlay";
 import { ModeMenu } from "./ModeMenu";
 import { SetupMenu } from "./SetupMenu";
 import { ConstantsDialog } from "./ConstantsDialog";
@@ -99,79 +100,97 @@ export function CalculatorShell() {
   );
 
   return (
-    <main className="calc-page">
-      <div className="calc-hud" aria-hidden="true">
-        <span className="calc-hud-dot" />
-        <span>SYS.READY</span>
-        <span className="calc-hud-rule" />
-        <span className="calc-hud-value">{mode.shortName}</span>
-      </div>
+    <>
+      <IntroOverlay />
 
-      <div className="calc-frame">
-        <div className="calc-case">
-          <div className="calc-brand">
-            <span className="calc-brand-mark">CASIO</span>
-            <span className="calc-brand-model">fx-991EX</span>
-            <span className="calc-brand-sub">ClassWiz</span>
+      <main className="calc-page">
+        <div className="calc-hud" aria-hidden="true">
+          <span className="calc-hud-dot" />
+          <span>SYS.READY</span>
+          <span className="calc-hud-rule" />
+          <span className="calc-hud-value">{mode.shortName}</span>
+        </div>
+
+        <div className="calc-frame">
+          <div className="calc-case">
+            <div className="calc-brand">
+              <span className="calc-brand-mark">CASIO</span>
+              <span className="calc-brand-model">fx-991EX</span>
+              <span className="calc-brand-sub">ClassWiz</span>
+            </div>
+
+            <LCD
+              state={state}
+              showExpression={mode.expressionBased}
+              hint={mode.name}
+            />
+
+            <Keypad
+              shift={state.shift}
+              alpha={state.alpha}
+              onAction={handleAction}
+            />
           </div>
-
-          <LCD
-            state={state}
-            showExpression={mode.expressionBased}
-            hint={mode.name}
-          />
-
-          <Keypad
-            shift={state.shift}
-            alpha={state.alpha}
-            onAction={handleAction}
-          />
         </div>
-      </div>
 
-      {showWorkspace ? (
-        <div className="calc-workspace">
-          <ModeHost state={state} dispatch={dispatch} />
-        </div>
-      ) : null}
+        {showWorkspace ? (
+          <div className="calc-workspace">
+            <ModeHost state={state} dispatch={dispatch} />
+          </div>
+        ) : null}
 
-      <p className="calc-disclaimer">
-        Educational emulator — not affiliated with Casio.
-      </p>
+        <footer className="calc-footer">
+          <span className="calc-footer-credit">
+            dev by{" "}
+            <a
+              className="calc-footer-link"
+              href="https://github.com/parvezhossainme"
+              rel="noreferrer"
+              target="_blank"
+            >
+              @parvezhossainme
+            </a>
+          </span>
+          <span className="calc-footer-dot" aria-hidden="true">
+            ·
+          </span>
+          <span className="calc-footer-note">not affiliated with Casio</span>
+        </footer>
 
-      <ModeMenu
-        open={menuOpen}
-        onOpenChange={setMenuOpen}
-        current={state.mode}
-        onSelect={selectMode}
-      />
-      <SetupMenu
-        open={setupOpen}
-        onOpenChange={setSetupOpen}
-        angleUnit={state.angleUnit}
-        format={state.format}
-        insertMode={state.insertMode}
-        onAngleUnit={(unit) => dispatch({ type: "setAngleUnit", unit })}
-        onFormat={(format) => dispatch({ type: "setFormat", format })}
-        onInsertMode={() => dispatch({ type: "control", control: "ins" })}
-        onClearHistory={() => dispatch({ type: "clearHistory" })}
-      />
-      <ConstantsDialog
-        open={constantsOpen}
-        onOpenChange={setConstantsOpen}
-        onSelect={(value) => {
-          dispatch({ type: "insertTokens", tokens: numberToTokens(value) });
-          setConstantsOpen(false);
-        }}
-      />
-      <ConversionsDialog
-        open={conversionsOpen}
-        onOpenChange={setConversionsOpen}
-        onInsert={(value) => {
-          dispatch({ type: "insertTokens", tokens: numberToTokens(value) });
-          setConversionsOpen(false);
-        }}
-      />
-    </main>
+        <ModeMenu
+          open={menuOpen}
+          onOpenChange={setMenuOpen}
+          current={state.mode}
+          onSelect={selectMode}
+        />
+        <SetupMenu
+          open={setupOpen}
+          onOpenChange={setSetupOpen}
+          angleUnit={state.angleUnit}
+          format={state.format}
+          insertMode={state.insertMode}
+          onAngleUnit={(unit) => dispatch({ type: "setAngleUnit", unit })}
+          onFormat={(format) => dispatch({ type: "setFormat", format })}
+          onInsertMode={() => dispatch({ type: "control", control: "ins" })}
+          onClearHistory={() => dispatch({ type: "clearHistory" })}
+        />
+        <ConstantsDialog
+          open={constantsOpen}
+          onOpenChange={setConstantsOpen}
+          onSelect={(value) => {
+            dispatch({ type: "insertTokens", tokens: numberToTokens(value) });
+            setConstantsOpen(false);
+          }}
+        />
+        <ConversionsDialog
+          open={conversionsOpen}
+          onOpenChange={setConversionsOpen}
+          onInsert={(value) => {
+            dispatch({ type: "insertTokens", tokens: numberToTokens(value) });
+            setConversionsOpen(false);
+          }}
+        />
+      </main>
+    </>
   );
 }
