@@ -39,6 +39,20 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# AI / agent tooling (local only — never published)
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.cursor/
+.cursorrules
+.windsurf/
+.aider*
+.continue/
+.github/copilot-instructions.md
+.mcp.json
+*.agent.md
+*.prompt.md
+
 # vercel
 .vercel
 
