@@ -133,7 +133,7 @@ export function VectorMode({ angleUnit }: { angleUnit: string }) {
         <div className="flex flex-wrap gap-4">
           {(["a", "b"] as const).map((prefix) => (
             <div key={prefix}>
-              <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+              <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-foreground/60">
                 Vector {prefix.toUpperCase()}
               </p>
               <div className="flex gap-1">
@@ -153,7 +153,7 @@ export function VectorMode({ angleUnit }: { angleUnit: string }) {
         </div>
 
         <div>
-          <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+          <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-foreground/60">
             Operation
           </p>
           <div className="flex flex-wrap gap-1.5">

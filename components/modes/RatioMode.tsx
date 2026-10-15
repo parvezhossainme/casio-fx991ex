@@ -109,7 +109,7 @@ export function RatioMode() {
 function Field({ name, label }: { name: string; label: string }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+      <span className="mb-1 block text-[0.7rem] uppercase tracking-wide text-foreground/60">
         {label}
       </span>
       <input

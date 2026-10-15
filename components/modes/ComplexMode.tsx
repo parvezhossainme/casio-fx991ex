@@ -69,7 +69,7 @@ export function ComplexMode({
         <ResultRow label="Last answer" value={state.result ?? "—"} />
       </div>
 
-      <div className="mt-4 space-y-1 text-xs text-muted-foreground">
+      <div className="mt-4 space-y-1 text-xs text-foreground/60">
         <p>
           Enter expressions such as{" "}
           <span className="font-mono text-foreground">(2+3i)×(1−i)</span> and
@@ -81,7 +81,7 @@ export function ComplexMode({
           argument uses <span className="font-mono text-foreground">Arg</span>{" "}
           (returned in the current angle unit).
         </p>
-        <p className="text-amber-300/80">
+        <p className="text-[var(--neon-magenta)]/80">
           Polar ⇄ rectangular conversion shortcuts are not implemented; use Abs
           and Arg instead.
         </p>

@@ -48,6 +48,9 @@ GEMINI.md
 .windsurf/
 .aider*
 .continue/
+.claude/
+.codex/
+.commandcode/
 .github/copilot-instructions.md
 .mcp.json
 *.agent.md

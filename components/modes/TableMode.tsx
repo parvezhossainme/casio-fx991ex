@@ -87,7 +87,7 @@ export function TableMode({ state }: { state: CalculatorState }) {
         {state.tokens.length > 0 ? (
           tokensToPlainText(state.tokens)
         ) : (
-          <span className="text-muted-foreground">—</span>
+          <span className="text-foreground/60">—</span>
         )}
       </div>
 
@@ -124,7 +124,7 @@ export function TableMode({ state }: { state: CalculatorState }) {
         >
           <table className="w-full font-mono text-xs">
             <thead>
-              <tr className="text-muted-foreground">
+              <tr className="text-foreground/60">
                 <th className="text-left font-normal">X</th>
                 <th className="text-right font-normal">f(X)</th>
               </tr>

@@ -59,11 +59,11 @@ export function ConstantsDialog({
               >
                 <span className="min-w-0 truncate">
                   <span className="font-mono text-sm">{constant.symbol}</span>{" "}
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-foreground/60">
                     {constant.label}
                   </span>
                 </span>
-                <span className="shrink-0 font-mono text-xs text-muted-foreground">
+                <span className="shrink-0 font-mono text-xs text-foreground/60">
                   {formatNumberText(constant.value)}{" "}
                   <span className="opacity-70">{constant.unit}</span>
                 </span>
@@ -71,7 +71,7 @@ export function ConstantsDialog({
             </li>
           ))}
           {filtered.length === 0 ? (
-            <li className="px-2 py-2 text-xs text-muted-foreground">
+            <li className="px-2 py-2 text-xs text-foreground/60">
               No matching constant.
             </li>
           ) : null}

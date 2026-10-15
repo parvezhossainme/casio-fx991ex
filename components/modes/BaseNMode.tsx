@@ -82,7 +82,7 @@ export function BaseNMode() {
         </Field>
 
         <div>
-          <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+          <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-foreground/60">
             Operator
           </p>
           <div className="flex flex-wrap gap-1.5">

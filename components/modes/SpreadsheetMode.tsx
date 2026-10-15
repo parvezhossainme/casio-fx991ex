@@ -42,7 +42,7 @@ export function SpreadsheetMode() {
               {Array.from({ length: COLUMNS }, (_, column) => (
                 <th
                   key={column}
-                  className="px-1 pb-1 font-normal text-muted-foreground"
+                  className="px-1 pb-1 font-normal text-foreground/60"
                 >
                   {refName(column, 0).replace("1", "")}
                 </th>
@@ -52,7 +52,7 @@ export function SpreadsheetMode() {
           <tbody>
             {Array.from({ length: ROWS }, (_, row) => (
               <tr key={row}>
-                <th className="pr-1 text-right font-normal text-muted-foreground">
+                <th className="pr-1 text-right font-normal text-foreground/60">
                   {row + 1}
                 </th>
                 {Array.from({ length: COLUMNS }, (_, column) => {
@@ -71,7 +71,7 @@ export function SpreadsheetMode() {
                         autoComplete="off"
                       />
                       <div
-                        className={`px-1 pt-0.5 font-mono text-[0.65rem] ${cellError ? "text-red-300" : "text-muted-foreground"}`}
+                        className={`px-1 pt-0.5 font-mono text-[0.65rem] ${cellError ? "text-[var(--neon-red)]" : "text-foreground/60"}`}
                         data-testid={`cell-value-${ref}`}
                       >
                         {cellError

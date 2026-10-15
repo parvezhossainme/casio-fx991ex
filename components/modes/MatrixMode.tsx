@@ -132,24 +132,24 @@ export function MatrixMode() {
       <form onSubmit={submit} className="space-y-4">
         <div className="flex flex-wrap gap-4">
           <div>
-            <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+            <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-foreground/60">
               Matrix A
             </p>
             <div className="mb-2 flex items-center gap-1">
               <SizeSelect label="Rows A" value={rowsA} onChange={setRowsA} />
-              <span className="text-xs text-muted-foreground">×</span>
+              <span className="text-xs text-foreground/60">×</span>
               <SizeSelect label="Columns A" value={colsA} onChange={setColsA} />
             </div>
             <MatrixGrid prefix="a" rows={rowsA} cols={colsA} />
           </div>
 
           <div>
-            <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+            <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-foreground/60">
               Matrix B
             </p>
             <div className="mb-2 flex items-center gap-1">
               <SizeSelect label="Rows B" value={rowsB} onChange={setRowsB} />
-              <span className="text-xs text-muted-foreground">×</span>
+              <span className="text-xs text-foreground/60">×</span>
               <SizeSelect label="Columns B" value={colsB} onChange={setColsB} />
             </div>
             <MatrixGrid prefix="b" rows={rowsB} cols={colsB} />
@@ -157,7 +157,7 @@ export function MatrixMode() {
         </div>
 
         <div>
-          <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+          <p className="mb-1 text-[0.7rem] uppercase tracking-wide text-foreground/60">
             Operation
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -184,7 +184,7 @@ export function MatrixMode() {
 
       {result && (
         <div className="mt-4">
-          <p className="mb-2 text-xs text-muted-foreground">{result.label}</p>
+          <p className="mb-2 text-xs text-foreground/60">{result.label}</p>
           {result.scalar !== undefined && (
             <p className="font-mono text-lg" data-testid="matrix-result">
               {formatNumberText(result.scalar)}

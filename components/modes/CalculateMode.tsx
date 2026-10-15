@@ -62,7 +62,7 @@ export function CalculateMode({
       </div>
 
       <div className="mt-4">
-        <p className="mb-2 text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+        <p className="mb-2 text-[0.7rem] uppercase tracking-wide text-foreground/60">
           Quick insert
         </p>
         <div className="flex flex-wrap gap-2">
@@ -80,7 +80,7 @@ export function CalculateMode({
         </div>
       </div>
 
-      <div className="mt-4 space-y-1 text-xs text-muted-foreground">
+      <div className="mt-4 space-y-1 text-xs text-foreground/60">
         <p>
           <span className="text-foreground">STO</span> then a variable key
           stores the current answer.

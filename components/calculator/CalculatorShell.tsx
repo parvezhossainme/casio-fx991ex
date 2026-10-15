@@ -100,24 +100,33 @@ export function CalculatorShell() {
 
   return (
     <main className="calc-page">
-      <div className="calc-case">
-        <div className="calc-brand">
-          <span className="calc-brand-mark">CASIO</span>
-          <span className="calc-brand-model">fx-991EX</span>
-          <span className="calc-brand-sub">ClassWiz</span>
+      <div className="calc-hud" aria-hidden="true">
+        <span className="calc-hud-dot" />
+        <span>SYS.READY</span>
+        <span className="calc-hud-rule" />
+        <span className="calc-hud-value">{mode.shortName}</span>
+      </div>
+
+      <div className="calc-frame">
+        <div className="calc-case">
+          <div className="calc-brand">
+            <span className="calc-brand-mark">CASIO</span>
+            <span className="calc-brand-model">fx-991EX</span>
+            <span className="calc-brand-sub">ClassWiz</span>
+          </div>
+
+          <LCD
+            state={state}
+            showExpression={mode.expressionBased}
+            hint={mode.name}
+          />
+
+          <Keypad
+            shift={state.shift}
+            alpha={state.alpha}
+            onAction={handleAction}
+          />
         </div>
-
-        <LCD
-          state={state}
-          showExpression={mode.expressionBased}
-          hint={mode.name}
-        />
-
-        <Keypad
-          shift={state.shift}
-          alpha={state.alpha}
-          onAction={handleAction}
-        />
       </div>
 
       {showWorkspace ? (

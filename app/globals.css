@@ -7,9 +7,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-jetbrains);
+  --font-mono: var(--font-jetbrains);
+  --font-display: var(--font-orbitron);
+  --font-label: var(--font-share-tech);
+  --font-heading: var(--font-orbitron);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -48,73 +50,63 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * Cyberpunk / Glitch tokens.
+ *
+ * Declared once, here. Every surface in the app -- the shadcn primitives included -- resolves
+ * through these, so no component hard-codes a colour.
+ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
+  --background: #0a0a0f;
+  --foreground: #e0e0e0;
+  --card: #12121a;
+  --card-foreground: #e0e0e0;
+  --popover: #12121a;
+  --popover-foreground: #e0e0e0;
+  --primary: #00ff88;
+  --primary-foreground: #04120a;
+  --secondary: #ff00ff;
+  --secondary-foreground: #16000f;
+  --muted: #1c1c2e;
+  --muted-foreground: #6b7280;
+  --accent: #16162a;
+  --accent-foreground: #00d4ff;
+  --destructive: #ff3366;
+  --border: #2a2a3a;
+  --input: #12121a;
+  --ring: #00ff88;
+  --chart-1: #00ff88;
+  --chart-2: #00d4ff;
+  --chart-3: #ff00ff;
+  --chart-4: #ff3366;
+  --chart-5: #6b7280;
+  --radius: 0.25rem;
+  --sidebar: #0e0e16;
+  --sidebar-foreground: #e0e0e0;
+  --sidebar-primary: #00ff88;
+  --sidebar-primary-foreground: #04120a;
+  --sidebar-accent: #1c1c2e;
+  --sidebar-accent-foreground: #00d4ff;
+  --sidebar-border: #2a2a3a;
+  --sidebar-ring: #00ff88;
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Named neon accents, so decorative rules state intent rather than a hex value. */
+  --neon-green: #00ff88;
+  --neon-magenta: #ff00ff;
+  --neon-cyan: #00d4ff;
+  --neon-red: #ff3366;
+
+  --glow-green: 0 0 14px -2px rgb(0 255 136 / 55%);
+  --glow-cyan: 0 0 14px -2px rgb(0 212 255 / 55%);
+
+  /* Circuit grid and noise, kept here so the overlays stay declarative. */
+  --cx-grid:
+    linear-gradient(rgb(0 255 136 / 4.5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(0 255 136 / 4.5%) 1px, transparent 1px);
+  --cx-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* Chamfer used by the chamfered-panel helper. */
+  --cut: 0.6rem;
 }
 
 @layer base {
@@ -127,46 +119,199 @@
   html {
     @apply font-sans;
   }
+  ::selection {
+    background: var(--neon-green);
+    color: var(--primary-foreground);
+  }
 }
 
 /* ==========================================================================
-   fx-991EX ClassWiz — physical case, display and keypad
+   Reusable primitives
+   ========================================================================== */
+
+/*
+ * Chamfered panel. The element paints the 1px outline colour and a clipped pseudo-element
+ * paints the surface one pixel inside it, so the outline follows the diagonal instead of
+ * being sliced off by `clip-path` the way a real border would be.
+ */
+.cx-cut {
+  position: relative;
+  isolation: isolate;
+  background: var(--border);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.cx-cut::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: var(--surface, var(--card));
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+/* ==========================================================================
+   Atmosphere — deep field, circuit grid, CRT scanlines
    ========================================================================== */
 
 .calc-page {
+  position: relative;
+  isolation: isolate;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
   padding: 1.25rem 1rem 1.5rem;
-  background: radial-gradient(
-    120% 90% at 50% 0%,
-    #2a2c31 0%,
-    #15171a 55%,
-    #0b0c0e 100%
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      62% 42% at 12% 0%,
+      rgb(0 212 255 / 13%) 0%,
+      transparent 68%
+    ),
+    radial-gradient(
+      58% 46% at 92% 8%,
+      rgb(255 0 255 / 12%) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      80% 60% at 50% 108%,
+      rgb(0 255 136 / 9%) 0%,
+      transparent 72%
+    ),
+    linear-gradient(180deg, #0a0a0f 0%, #08080c 55%, #06060a 100%);
+}
+
+/* Circuit grid + noise. Sits below the calculator and never takes pointer events. */
+.calc-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--cx-grid), var(--cx-noise);
+  background-size:
+    46px 46px,
+    46px 46px,
+    140px 140px;
+  opacity: 0.85;
+  mask-image: radial-gradient(90% 72% at 50% 32%, #000 25%, transparent 100%);
+}
+
+/* CRT scanlines and vignette. Also behind the calculator and non-interactive. */
+.calc-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgb(0 0 0 / 26%) 0 1px,
+      transparent 1px 3px
+    ),
+    radial-gradient(
+      120% 90% at 50% 50%,
+      transparent 55%,
+      rgb(0 0 0 / 65%) 100%
+    );
+}
+
+.calc-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Decorative status strip ──────────────────────────────────────────────── */
+
+.calc-hud {
+  width: min(100%, 21rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: color-mix(in oklab, var(--foreground) 55%, transparent);
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.calc-hud-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--neon-green);
+  box-shadow: var(--glow-green);
+  animation: cx-pulse 2.6s ease-in-out infinite;
+}
+
+.calc-hud-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgb(0 255 136 / 45%),
+    rgb(42 42 58 / 60%) 45%,
+    transparent
   );
 }
 
-/* ── Case ─────────────────────────────────────────────────────────────────── */
+.calc-hud-value {
+  color: var(--neon-cyan);
+}
+
+/* ==========================================================================
+   Case
+   ========================================================================== */
+
+/* Carries the neon bloom, so the chamfered case keeps a clean clipped silhouette. */
+.calc-frame {
+  width: min(100%, 21rem);
+  filter: drop-shadow(0 0 24px rgb(0 255 136 / 9%))
+    drop-shadow(0 20px 44px rgb(0 0 0 / 78%));
+}
 
 .calc-case {
-  width: min(100%, 21rem);
-  padding: 0.85rem 0.85rem 1rem;
-  border-radius: 1.15rem;
-  background: linear-gradient(
-    168deg,
-    #32353a 0%,
-    #24272b 42%,
-    #1a1c1f 78%,
-    #121417 100%
+  width: 100%;
+  padding: 0.8rem 0.8rem 0.9rem;
+  background:
+    linear-gradient(
+      158deg,
+      rgb(0 212 255 / 7%) 0%,
+      transparent 38%,
+      transparent 62%,
+      rgb(255 0 255 / 7%) 100%
+    ),
+    linear-gradient(168deg, #171722 0%, #12121a 46%, #0c0c13 100%);
+  clip-path: polygon(
+    0.9rem 0,
+    100% 0,
+    100% calc(100% - 0.9rem),
+    calc(100% - 0.9rem) 100%,
+    0 100%,
+    0 0.9rem
   );
-  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.14) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.5) inset,
-    0 26px 48px -18px rgba(0, 0, 0, 0.9),
-    0 2px 3px rgba(0, 0, 0, 0.6);
+    inset 0 1px 0 rgb(255 255 255 / 7%),
+    inset 0 0 0 1px rgb(0 255 136 / 12%),
+    inset 0 -1px 0 rgb(0 0 0 / 60%);
 }
 
 .calc-brand {
@@ -177,82 +322,97 @@
     "sub  sub";
   align-items: baseline;
   column-gap: 0.6rem;
-  padding: 0.1rem 0.35rem 0.5rem;
+  padding: 0.05rem 0.35rem 0.4rem;
 }
 
 .calc-brand-mark {
   grid-area: mark;
+  font-family: var(--font-display), sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
-  color: #d8dbdf;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.24em;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px rgb(0 255 136 / 45%);
+  animation: cx-glitch 11s steps(1, end) infinite;
 }
 
 .calc-brand-model {
   grid-area: model;
+  font-family: var(--font-label), ui-monospace, monospace;
   font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: #b9bec4;
+  letter-spacing: 0.14em;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgb(0 212 255 / 30%);
 }
 
 .calc-brand-sub {
   grid-area: sub;
-  margin-top: 0.1rem;
-  font-size: 0.66rem;
-  font-style: italic;
-  letter-spacing: 0.06em;
-  color: #c08a86;
+  margin-top: 0.15rem;
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.64rem;
+  font-style: normal;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--neon-magenta);
+  opacity: 0.75;
 }
 
-/* ── LCD ──────────────────────────────────────────────────────────────────── */
+/* ==========================================================================
+   LCD
+   ========================================================================== */
 
 .calc-lcd-shell {
   padding: 0.4rem;
-  border-radius: 0.55rem;
-  background: linear-gradient(180deg, #17191c, #101214);
+  background: linear-gradient(180deg, #101018, #08080d);
+  clip-path: polygon(
+    0.5rem 0,
+    100% 0,
+    100% calc(100% - 0.5rem),
+    calc(100% - 0.5rem) 100%,
+    0 100%,
+    0 0.5rem
+  );
   box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.7) inset,
-    0 1px 0 rgba(255, 255, 255, 0.05);
+    inset 0 1px 0 rgb(0 212 255 / 14%),
+    inset 0 0 0 1px rgb(42 42 58 / 90%),
+    0 0 22px rgb(0 255 136 / 7%);
 }
 
 .calc-solar {
   display: flex;
   gap: 2px;
-  height: 0.55rem;
-  margin-bottom: 0.3rem;
+  height: 0.5rem;
+  margin-bottom: 0.35rem;
   padding: 2px;
-  border-radius: 2px;
-  background: #0a0c0e;
+  background: #06060a;
   overflow: hidden;
 }
 
 .calc-solar-cell {
   flex: 1;
-  border-radius: 1px;
-  background: linear-gradient(180deg, #33383a, #1d2123);
+  background: linear-gradient(180deg, #1b2b2f, #0d1518);
+  border-top: 1px solid rgb(0 212 255 / 22%);
 }
 
 .calc-lcd {
   position: relative;
   min-height: 7.25rem;
-  padding: 0.4rem 0.55rem 0.45rem;
-  border-radius: 0.2rem;
+  padding: 0.45rem 0.6rem 0.5rem;
   display: flex;
   flex-direction: column;
-  color: #14200e;
-  font-family: var(--font-geist-mono), ui-monospace, "Courier New", monospace;
-  background: linear-gradient(180deg, #c8d3b6 0%, #bfcbaa 55%, #b3c09e 100%);
-  box-shadow:
-    0 0 14px rgba(70, 92, 48, 0.22) inset,
-    0 0 0 1px rgba(28, 40, 18, 0.35) inset;
+  color: #04140b;
+  font-family: var(--font-jetbrains), ui-monospace, "Courier New", monospace;
   background-image:
     repeating-linear-gradient(
       180deg,
-      rgba(30, 46, 20, 0.06) 0 1px,
+      rgb(6 40 20 / 7%) 0 1px,
       transparent 1px 3px
     ),
-    linear-gradient(180deg, #c8d3b6 0%, #bfcbaa 55%, #b3c09e 100%);
+    linear-gradient(180deg, #cfe8d2 0%, #bcdabe 55%, #a8c9ae 100%);
+  box-shadow:
+    inset 0 0 16px rgb(10 70 35 / 16%),
+    inset 0 0 0 1px rgb(6 40 20 / 45%),
+    0 0 18px rgb(0 255 136 / 16%);
   overflow: hidden;
 }
 
@@ -260,18 +420,26 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.5rem;
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.52rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   line-height: 1;
+  color: #0b2a16;
 }
 
+/* Unlit indicators stay printed but subdued, the way an LCD ghosts them. */
 .calc-status-flag {
-  opacity: 0.13;
+  opacity: 0.3;
+  transition:
+    opacity 0.12s ease,
+    text-shadow 0.12s ease;
 }
 
 .calc-status-flag[data-active="true"] {
   opacity: 1;
+  color: #04381d;
+  text-shadow: 0 0 6px rgb(0 120 60 / 45%);
 }
 
 .calc-status-spacer {
@@ -296,21 +464,24 @@
 .calc-result-line {
   min-height: 1.7rem;
   padding-top: 0.1rem;
-  border-top: 1px solid rgba(22, 33, 15, 0.16);
+  border-top: 1px solid rgb(6 40 20 / 25%);
   text-align: right;
   font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .calc-result-line[data-error="true"] {
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.03em;
+  color: #7d0b25;
 }
 
 .calc-hint {
+  font-family: var(--font-label), ui-monospace, monospace;
   font-size: 0.58rem;
-  letter-spacing: 0.08em;
-  opacity: 0.65;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
 }
 
 /* ── Natural-textbook maths layout ────────────────────────────────────────── */
@@ -389,6 +560,7 @@
   height: 1.05em;
   margin: 0 1px;
   background: currentColor;
+  box-shadow: 0 0 6px currentColor;
   vertical-align: -0.16em;
   animation: calc-blink 1.05s steps(1) infinite;
 }
@@ -413,7 +585,9 @@
   vertical-align: -0.1em;
 }
 
-/* ── Keypad blocks ────────────────────────────────────────────────────────── */
+/* ==========================================================================
+   Keypad blocks
+   ========================================================================== */
 
 .calc-keypad {
   display: flex;
@@ -425,6 +599,17 @@
 .calc-key-block {
   display: grid;
   gap: 0.34rem 0.3rem;
+  padding: 0.24rem 0.26rem;
+  background: rgb(8 8 14 / 55%);
+  box-shadow: inset 0 0 0 1px rgb(42 42 58 / 75%);
+  clip-path: polygon(
+    0.4rem 0,
+    100% 0,
+    100% calc(100% - 0.4rem),
+    calc(100% - 0.4rem) 100%,
+    0 100%,
+    0 0.4rem
+  );
 }
 
 .calc-key-tile {
@@ -439,130 +624,176 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 0.24rem;
+  gap: 0.22rem;
   height: 0.7rem;
   overflow: hidden;
   white-space: nowrap;
 }
 
 .calc-legend {
-  font-size: 0.5rem;
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.55rem;
   line-height: 1;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .calc-legend--shift {
-  color: #f0b429;
+  color: var(--neon-magenta);
+  text-shadow: 0 0 7px rgb(255 0 255 / 45%);
 }
 
 .calc-legend--alpha {
-  color: #e5484d;
+  color: var(--neon-green);
+  text-shadow: 0 0 7px rgb(0 255 136 / 40%);
 }
 
 .calc-legend--base {
   position: absolute;
   top: 0.04rem;
   right: 0.05rem;
-  color: #6ea8fe;
-  font-size: 0.46rem;
+  color: var(--neon-cyan);
+  font-size: 0.5rem;
+  text-shadow: 0 0 7px rgb(0 212 255 / 40%);
 }
 
-/* ── Keys ─────────────────────────────────────────────────────────────────── */
+/* ==========================================================================
+   Keys
+   ========================================================================== */
 
 .calc-key {
+  --key-surface: linear-gradient(180deg, #23232f 0%, #181820 60%, #101018 100%);
+  --key-line: #3a3a52;
+  --key-fg: #dde2ea;
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 1.95rem;
   padding: 0.1rem 0.05rem;
-  border-radius: 0.34rem;
+  border-radius: 0.18rem;
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1;
-  color: #f2f4f6;
+  color: var(--key-fg);
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
-  background: linear-gradient(180deg, #595d62 0%, #3d4145 48%, #2b2f33 100%);
-  border: 1px solid rgba(0, 0, 0, 0.72);
+  background: var(--key-surface);
+  border: 1px solid var(--key-line);
   box-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.72),
-    0 1px 0 rgba(255, 255, 255, 0.24) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.38) inset;
+    0 2px 0 rgb(0 0 0 / 85%),
+    0 3px 6px rgb(0 0 0 / 45%),
+    inset 0 1px 0 rgb(255 255 255 / 14%),
+    inset 0 -2px 0 rgb(0 0 0 / 50%);
   transition:
-    transform 0.04s ease,
-    filter 0.12s ease;
+    transform 0.05s ease,
+    filter 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
 }
 
 .calc-key:active {
-  transform: translateY(1.5px);
-  filter: brightness(1.16);
+  transform: translateY(2px);
+  filter: brightness(1.3);
   box-shadow:
-    0 0 0 rgba(0, 0, 0, 0.6),
-    0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    0 0 0 rgb(0 0 0 / 60%),
+    0 0 0 rgb(0 0 0 / 0%),
+    inset 0 0 14px rgb(255 255 255 / 12%);
 }
 
 .calc-key:focus-visible {
-  outline: 2px solid #7dd3fc;
+  outline: 2px solid var(--neon-green);
   outline-offset: 2px;
 }
 
-/* Upper (function) keys: dark caps that still read against the case */
+.calc-key-label {
+  font-size: 0.72rem;
+}
+
+.calc-key-sub {
+  font-size: 0.46rem;
+  opacity: 0.7;
+}
+
+/* Upper (function) keys — plain keycaps. */
 .calc-key--function {
-  background: linear-gradient(180deg, #565a5f 0%, #3a3e42 48%, #282c30 100%);
+  --key-surface: linear-gradient(180deg, #272735 0%, #191922 60%, #101018 100%);
+  --key-line: #3a3a52;
 }
 
-.calc-key--shift {
-  background: linear-gradient(180deg, #595d62 0%, #3d4145 48%, #2b2f33 100%);
-  color: #f0b429;
-}
-
-.calc-key--alpha {
-  background: linear-gradient(180deg, #595d62 0%, #3d4145 48%, #2b2f33 100%);
-  color: #e5484d;
-}
-
-/* Lower (numeric) keys: pale grey with dark legends */
+/* Numeric keys — charcoal with the brightest legends on the case. */
 .calc-key--numeric {
-  color: #1c1e21;
-  background: linear-gradient(180deg, #eef0ec 0%, #dfe3da 55%, #c9cec4 100%);
-  border-color: rgba(0, 0, 0, 0.35);
-  box-shadow:
-    0 1.5px 0 rgba(0, 0, 0, 0.55),
-    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  --key-surface: linear-gradient(180deg, #353547 0%, #22222f 62%, #171721 100%);
+  --key-line: #4a4a68;
+  --key-fg: #f4f7fb;
 }
 
-/* AC and DEL share the numeric block's size so the row stays even. */
+/* AC and DEL keep the numeric block's height so the row stays even. */
 .calc-key--numeric,
 .calc-key--blue {
   min-height: 2.15rem;
 }
 
-.calc-key--blue {
-  color: #f2f6ff;
-  background: linear-gradient(180deg, #5b83c4 0%, #48619f 55%, #3a4f86 100%);
-  border-color: rgba(0, 0, 0, 0.45);
-  box-shadow:
-    0 1.5px 0 rgba(0, 0, 0, 0.6),
-    0 1px 0 rgba(255, 255, 255, 0.28) inset;
-}
-
-.calc-key--active {
-  outline: 2px solid #f0b429;
-  outline-offset: 1px;
-}
-
-.calc-key-label {
-  font-size: 0.68rem;
+/* Destructive / clear — red-pink. */
+.calc-key[data-key="ac"],
+.calc-key[data-key="del"] {
+  --key-surface: linear-gradient(180deg, #2c1420 0%, #1e0d16 60%, #160a11 100%);
+  --key-line: rgb(255 51 102 / 60%);
+  --key-fg: #ff8aa8;
 }
 
 .calc-key--numeric .calc-key-label,
 .calc-key--blue .calc-key-label {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
 }
 
-.calc-key-sub {
-  font-size: 0.46rem;
-  opacity: 0.75;
+/* Operators — restrained cyan. */
+.calc-key[data-key="add"],
+.calc-key[data-key="sub"],
+.calc-key[data-key="mul"],
+.calc-key[data-key="div"] {
+  --key-surface: linear-gradient(180deg, #142630 0%, #0e1a22 60%, #0a1218 100%);
+  --key-line: rgb(0 212 255 / 55%);
+  --key-fg: #8ceaff;
+}
+
+/* SHIFT / ALPHA modifiers. */
+.calc-key[data-key="shift"] {
+  --key-surface: linear-gradient(180deg, #2b1033 0%, #1d0a23 60%, #150719 100%);
+  --key-line: rgb(255 0 255 / 55%);
+  --key-fg: #ff9bfb;
+}
+
+.calc-key[data-key="alpha"] {
+  --key-surface: linear-gradient(180deg, #0d2a1d 0%, #091c14 60%, #06130e 100%);
+  --key-line: rgb(0 255 136 / 50%);
+  --key-fg: #7dffc2;
+}
+
+/* Primary action — the neon-green equals. */
+.calc-key[data-key="equals"] {
+  --key-surface: linear-gradient(180deg, #00ff92 0%, #00d977 55%, #00b365 100%);
+  --key-line: var(--neon-green);
+  --key-fg: #04160c;
+  box-shadow:
+    0 0 16px -2px rgb(0 255 136 / 45%),
+    0 2px 0 rgb(0 0 0 / 55%),
+    inset 0 1px 0 rgb(255 255 255 / 40%);
+}
+
+.calc-key[data-key="equals"] .calc-key-label {
+  font-weight: 700;
+}
+
+/* Held modifier / toggled key — glows in the key's own accent colour. */
+.calc-key--active {
+  border-color: currentColor;
+  box-shadow:
+    0 0 0 1px currentColor,
+    0 0 18px -2px currentColor,
+    inset 0 0 12px -4px currentColor;
 }
 
 /* ── Directional pad ──────────────────────────────────────────────────────── */
@@ -575,11 +806,12 @@
   align-items: center;
   justify-items: center;
   border-radius: 50%;
-  background: linear-gradient(180deg, #34373b 0%, #26292c 60%, #1e2124 100%);
-  border: 1px solid rgba(0, 0, 0, 0.55);
+  background: linear-gradient(180deg, #1b1b26 0%, #12121b 65%, #0b0b12 100%);
+  border: 1px solid rgb(0 212 255 / 35%);
   box-shadow:
-    0 1.5px 0 rgba(0, 0, 0, 0.6),
-    0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    0 2px 0 rgb(0 0 0 / 60%),
+    0 0 18px -6px rgb(0 212 255 / 45%),
+    inset 0 1px 0 rgb(255 255 255 / 8%);
 }
 
 .calc-pad-zone {
@@ -590,18 +822,18 @@
   height: 100%;
   border: 0;
   background: transparent;
-  color: #e9ecef;
+  color: #9fe9ff;
   font-size: 0.6rem;
   cursor: pointer;
   border-radius: 0.25rem;
 }
 
 .calc-pad-zone:active {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgb(0 212 255 / 18%);
 }
 
 .calc-pad-zone:focus-visible {
-  outline: 2px solid #7dd3fc;
+  outline: 2px solid var(--neon-green);
   outline-offset: -2px;
 }
 
@@ -623,50 +855,208 @@
   width: 42%;
   height: 42%;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 35%, #52565b, #2b2e31);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset;
+  background: radial-gradient(circle at 50% 35%, #2a4a52, #101a20);
+  box-shadow:
+    0 0 10px -2px rgb(0 212 255 / 55%),
+    inset 0 1px 0 rgb(255 255 255 / 14%);
 }
 
-/* ── Workspace, disclaimer, inputs ────────────────────────────────────────── */
+/* ==========================================================================
+   Workspace, mode panels, disclaimer, inputs
+   ========================================================================== */
 
 .calc-workspace {
   width: min(100%, 42rem);
+  margin-top: 0.15rem;
 }
 
 .calc-disclaimer {
   margin-top: 0.25rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.03em;
-  color: #5f656d;
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--foreground) 48%, transparent);
 }
 
 .calc-slot {
   width: 100%;
   padding: 0.3rem 0.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 0.4rem;
-  background: #0f1115;
-  color: #e6e9ef;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  border: 1px solid var(--border);
+  border-radius: 0.15rem;
+  background: #0d0d14;
+  color: var(--foreground);
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
   font-size: 0.85rem;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.calc-slot::placeholder {
+  color: var(--muted-foreground);
+}
+
+.calc-slot:hover {
+  border-color: color-mix(in oklab, var(--neon-cyan) 40%, var(--border));
 }
 
 .calc-slot:focus {
-  outline: 2px solid #7dd3fc;
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--neon-green);
+  box-shadow: var(--glow-green);
 }
 
+select.calc-slot option {
+  background: #0d0d14;
+  color: var(--foreground);
+}
+
+/* ==========================================================================
+   shadcn surfaces — dialogs, buttons, inputs, labels
+   ========================================================================== */
+
+[data-slot="dialog-content"] {
+  --cut: 1.1rem;
+  position: fixed;
+  isolation: isolate;
+  padding: 1.15rem;
+  gap: 0.9rem;
+  background: var(--border);
+  border-radius: 0;
+  box-shadow: 0 0 44px -12px rgb(0 255 136 / 28%);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+[data-slot="dialog-content"]::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background:
+    linear-gradient(
+      170deg,
+      rgb(0 212 255 / 6%) 0%,
+      transparent 45%,
+      rgb(255 0 255 / 6%) 100%
+    ),
+    #0f0f18;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+[data-slot="dialog-title"] {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+  text-shadow: 0 0 12px rgb(0 255 136 / 35%);
+}
+
+[data-slot="dialog-description"] {
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  /* `--muted-foreground` is tuned for dividers and inactive glyphs; small copy needs more
+     contrast than #6b7280 clears against these near-black surfaces. */
+  color: color-mix(in oklab, var(--foreground) 62%, transparent);
+}
+
+[data-slot="button"] {
+  font-family: var(--font-label), ui-monospace, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+[data-slot="label"] {
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--foreground) 62%, transparent);
+}
+
+/* ==========================================================================
+   Motion
+   ========================================================================== */
+
+@keyframes cx-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Infrequent and decorative only — never applied to the display or the keys. */
+@keyframes cx-glitch {
+  0%,
+  91%,
+  100% {
+    transform: none;
+    text-shadow: 0 0 10px rgb(0 255 136 / 45%);
+  }
+  92% {
+    transform: translate(-1px, 0);
+    text-shadow:
+      2px 0 var(--neon-magenta),
+      -2px 0 var(--neon-cyan);
+  }
+  94% {
+    transform: translate(1px, 0);
+    text-shadow:
+      -2px 0 var(--neon-magenta),
+      2px 0 var(--neon-cyan);
+  }
+  96% {
+    transform: none;
+    text-shadow: 1px 0 var(--neon-cyan);
+  }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
 /*
- * Phone-sized viewports: fill the screen instead of sitting at the desktop width cap. The
- * keypad keeps its full-size keys here -- an earlier narrow-window shrink left a 360px screen
- * with a small, squat calculator. Any vertical overflow simply scrolls.
+ * Phone-sized viewports: fill the screen instead of sitting at the desktop width cap.
+ * The keypad keeps its full-size keys here -- an earlier narrow-window shrink left a 360px
+ * screen with a small, squat calculator. Any vertical overflow simply scrolls.
  */
 @media (max-width: 480px) {
   .calc-page {
     padding: 0.75rem 0.5rem 1rem;
   }
-  .calc-case {
+  .calc-frame,
+  .calc-hud {
     width: 100%;
+  }
+}
+
+/* Very narrow phones (<=340px) cannot fit the larger legends in a six-column row. */
+@media (max-width: 340px) {
+  .calc-legend {
+    font-size: 0.5rem;
+  }
+  .calc-legend--base {
+    font-size: 0.46rem;
   }
 }
 
@@ -679,34 +1069,47 @@
  * simply scrolls, which is still usable.
  */
 @media (min-width: 641px) and (max-height: 820px) {
-  .calc-case {
+  .calc-frame {
     zoom: 0.94;
   }
 }
 @media (min-width: 641px) and (max-height: 760px) {
-  .calc-case {
+  .calc-frame {
     zoom: 0.86;
   }
 }
 @media (min-width: 641px) and (max-height: 700px) {
-  .calc-case {
+  .calc-frame {
     zoom: 0.78;
   }
 }
 @media (min-width: 641px) and (max-height: 640px) {
-  .calc-case {
+  .calc-frame {
     zoom: 0.7;
   }
 }
 @media (min-width: 641px) and (max-height: 560px) {
-  .calc-case {
+  .calc-frame {
     zoom: 0.62;
   }
 }
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .calc-caret {
     animation: none;
     opacity: 1;
+  }
+  .calc-brand-mark,
+  .calc-hud-dot {
+    animation: none;
+  }
+  .calc-key,
+  .calc-status-flag,
+  .calc-slot {
+    transition: none;
   }
 }

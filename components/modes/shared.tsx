@@ -15,13 +15,17 @@ export function ModePanel({
 }) {
   return (
     <section
-      className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
+      className="cx-cut p-4 [--cut:0.7rem] [--surface:#0f0f18]"
       aria-label={`${title} mode`}
       data-testid="mode-panel"
     >
-      <header className="mb-4">
-        <h2 className="text-sm font-semibold">{title}</h2>
-        <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
+      <header className="mb-4 border-b border-border/70 pb-2">
+        <h2 className="font-display text-sm font-semibold tracking-[0.16em] text-[var(--neon-cyan)] uppercase">
+          {title}
+        </h2>
+        <p className="mt-1 font-label text-[0.7rem] text-foreground/60">
+          {subtitle}
+        </p>
       </header>
       {children}
     </section>
@@ -39,7 +43,7 @@ export function Field({
 }) {
   return (
     <label className={cn("block space-y-1", className)}>
-      <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+      <span className="block font-label text-[0.62rem] tracking-[0.16em] text-foreground/60 uppercase">
         {label}
       </span>
       {children}
@@ -82,9 +86,11 @@ export function ResultRow({
   value: ReactNode;
 }) {
   return (
-    <div className="flex items-baseline justify-between gap-3 border-b border-white/5 py-1 last:border-b-0">
-      <span className="text-xs text-muted-foreground">{label}</span>
-      <span className="font-mono text-sm">{value}</span>
+    <div className="flex items-baseline justify-between gap-3 border-b border-border/50 py-1 last:border-b-0">
+      <span className="font-label text-[0.66rem] tracking-[0.12em] text-foreground/60 uppercase">
+        {label}
+      </span>
+      <span className="font-mono text-sm text-foreground">{value}</span>
     </div>
   );
 }
@@ -93,7 +99,7 @@ export function ErrorNote({ message }: { message: string | null }) {
   if (!message) return null;
   return (
     <p
-      className="mt-3 rounded-md bg-red-500/10 px-2 py-1 text-xs text-red-300"
+      className="mt-3 border border-[var(--neon-red)]/40 bg-[var(--neon-red)]/10 px-2 py-1 font-label text-[0.7rem] tracking-[0.08em] text-[var(--neon-red)] uppercase"
       role="alert"
     >
       {message}

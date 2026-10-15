@@ -99,7 +99,7 @@ export function InequalityMode() {
             />
           ))}
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-foreground/60">
           Enter coefficients highest power first, e.g. for ax² + bx + c enter a,
           b, c.
         </p>

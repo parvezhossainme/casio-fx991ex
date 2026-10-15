@@ -126,7 +126,7 @@ export function SetupMenu({
             </Button>
           </div>
 
-          <p className={cn("text-xs text-muted-foreground")}>
+          <p className={cn("text-xs text-foreground/60")}>
             Settings and history are stored in your browser only. Nothing is
             sent to a server.
           </p>

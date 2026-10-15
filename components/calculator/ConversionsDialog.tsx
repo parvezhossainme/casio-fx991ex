@@ -58,7 +58,7 @@ export function ConversionsDialog({
 
         <div className="space-y-3">
           <label className="block space-y-1">
-            <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+            <span className="text-[0.7rem] uppercase tracking-wide text-foreground/60">
               Category
             </span>
             <select
@@ -77,7 +77,7 @@ export function ConversionsDialog({
 
           <div className="flex items-end gap-2">
             <label className="block flex-1 space-y-1">
-              <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+              <span className="text-[0.7rem] uppercase tracking-wide text-foreground/60">
                 From
               </span>
               <select
@@ -94,7 +94,7 @@ export function ConversionsDialog({
               </select>
             </label>
             <label className="block flex-1 space-y-1">
-              <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+              <span className="text-[0.7rem] uppercase tracking-wide text-foreground/60">
                 To
               </span>
               <select
@@ -113,7 +113,7 @@ export function ConversionsDialog({
           </div>
 
           <label className="block space-y-1">
-            <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground">
+            <span className="text-[0.7rem] uppercase tracking-wide text-foreground/60">
               Value
             </span>
             <input
@@ -126,7 +126,7 @@ export function ConversionsDialog({
           </label>
 
           <div className="flex items-center justify-between rounded-md border border-white/10 bg-white/[0.03] px-3 py-2">
-            <span className="text-xs text-muted-foreground">Result</span>
+            <span className="text-xs text-foreground/60">Result</span>
             <span className="font-mono text-sm" data-testid="conversion-result">
               {converted === null ? "—" : formatNumberText(converted)}
             </span>
