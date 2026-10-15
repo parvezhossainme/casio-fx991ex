@@ -63,7 +63,16 @@ export function KeyTile({ def, shift, alpha, onAction }: KeyProps) {
   return (
     <div
       className="calc-key-tile"
-      style={{ gridColumn: String(def.col), gridRow: String(def.row) }}
+      style={{
+        // Placement and stacking live inline so the grid survives any stylesheet problem.
+        gridColumn: String(def.col),
+        gridRow: String(def.row),
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
+        minWidth: 0,
+      }}
     >
       <span className="calc-key-legends" aria-hidden="true">
         {def.shiftLabel ? (

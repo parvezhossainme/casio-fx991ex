@@ -202,6 +202,31 @@ test.describe("layout", () => {
     await expect(page.getByTestId("history-list")).toHaveCount(0);
   });
 
+  test("keeps the keypad grid even when the stylesheet fails to load", async ({
+    page,
+  }) => {
+    // Regression guard: the keypad structure is declared inline, so a missing or stale
+    // stylesheet must not collapse the keys into a single column.
+    await page.route("**/*.css*", (route) => route.abort());
+    await page.goto("/");
+    await expect(page.locator('[data-key="equals"]')).toBeVisible();
+
+    const distinctRows = await page.evaluate(() => {
+      const tops = [...document.querySelectorAll(".calc-key")].map(
+        (el) => el.getBoundingClientRect().top,
+      );
+      const rows: number[] = [];
+      for (const top of tops.sort((a, b) => a - b)) {
+        if (!rows.some((existing) => Math.abs(existing - top) < 8))
+          rows.push(top);
+      }
+      return rows.length;
+    });
+
+    expect(distinctRows).toBe(9);
+    await expect(page.locator(".calc-pad")).toBeVisible();
+  });
+
   test("lays the keypad out as the physical device does", async ({ page }) => {
     await page.goto("/");
     for (const id of [
