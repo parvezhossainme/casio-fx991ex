@@ -33,7 +33,9 @@ export function ModeMenu({
             workflow.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-2 sm:grid-cols-2">
+        {/* `cx-dialog-scroll` caps the list to the viewport so every mode stays reachable on a
+            phone, instead of the tail being clipped by the chamfered frame. */}
+        <div className="cx-dialog-scroll grid gap-2 pr-1 sm:grid-cols-2">
           {MODES.map((mode) => (
             <button
               key={mode.id}

@@ -1062,6 +1062,9 @@ select.calc-slot option {
   isolation: isolate;
   padding: 1.15rem;
   gap: 0.9rem;
+  /* Never taller than the viewport: the chamfer clips overflow, so anything past this would be
+     cut off with no way to reach it. A list that still does not fit scrolls inside instead. */
+  max-height: calc(100dvh - 2rem);
   background: var(--border);
   border-radius: 0;
   box-shadow: 0 0 44px -12px rgb(0 255 136 / 28%);
@@ -1121,6 +1124,48 @@ select.calc-slot option {
   font-family: var(--font-label), ui-monospace, monospace;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/*
+ * Scrollable list body inside a dialog. The dialog is a grid, and a grid item will not shrink
+ * below its content, so the cap has to live on the list: without it a long list overflows the
+ * dialog and is silently sliced off by the chamfer, leaving the last entries unreachable. The
+ * constant is the dialog's own chrome — padding, header and gap — so the two always fit.
+ *
+ * The scrollbar is styled through `::-webkit-scrollbar` rather than `scrollbar-width`, because
+ * setting the latter makes Chromium ignore the former. A browser only paints a scrollbar when
+ * the list actually overflows, so short dialogs on desktop keep their original look.
+ */
+.cx-dialog-scroll {
+  min-height: 0;
+  max-height: calc(100dvh - 10.25rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cx-dialog-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cx-dialog-scroll::-webkit-scrollbar-track {
+  background: rgb(255 255 255 / 4%);
+}
+
+.cx-dialog-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+}
+
+/*
+ * Phones report overlay scrollbars (they take no width and only appear while dragging), so a long
+ * list simply ends mid-item with nothing to say it continues. Fade the bottom edge instead. This
+ * is scoped to phone widths because there the twelve-item mode list always overflows; the padding
+ * keeps the fade over empty space once the list is scrolled to the end, so no entry is dimmed.
+ */
+@media (max-width: 767px) {
+  .cx-dialog-scroll {
+    padding-bottom: 0.875rem;
+    mask-image: linear-gradient(180deg, #000 calc(100% - 0.875rem), transparent);
+  }
 }
 
 [data-slot="label"] {
@@ -1300,6 +1345,75 @@ select.calc-slot option {
 @media (max-height: 330px) {
   .calc-frame {
     zoom: 0.29;
+  }
+}
+
+/*
+ * Phones.
+ *
+ * The layout above is tuned for a tall desktop window: the footer is pinned to the bottom of the
+ * viewport, so on a phone the calculator sits short with a wide empty band above the footer
+ * (104px at 390x844), and on a shorter viewport the zoom ladder shrinks the whole case instead of
+ * using the height that is actually there.
+ *
+ * Here the case keeps its natural height (no zoom), the keypad is sized up so the body fills more
+ * of the screen, and the footer simply follows the calculator. `min-height` rather than `height`
+ * keeps the address bar in play, safe-area insets are respected when the browser reports them,
+ * and when the viewport is shorter than the result the page scrolls -- keys are never shrunk to
+ * force a fit.
+ */
+@media (max-width: 767px) {
+  .calc-page {
+    gap: 0.7rem;
+    min-height: 100dvh;
+    padding:
+      max(0.7rem, env(safe-area-inset-top))
+      max(0.5rem, env(safe-area-inset-right))
+      max(0.9rem, env(safe-area-inset-bottom))
+      max(0.5rem, env(safe-area-inset-left));
+  }
+
+  /* Overrides the desktop no-scroll lock, which is what forced the case to be scaled down. */
+  .calc-page:not(:has(.calc-workspace)) {
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* Undo the desktop scale ladder: on a phone the case keeps its full height. */
+  .calc-frame {
+    zoom: 1;
+  }
+
+  /* Follows the calculator instead of being pushed to the bottom of the viewport. */
+  .calc-footer {
+    margin-top: 0.55rem;
+  }
+
+  /* Taller body, so more of the screen is calculator and less is empty space. */
+  .calc-case {
+    padding: 0.9rem 0.85rem 1.05rem;
+  }
+  .calc-brand {
+    padding-bottom: 0.5rem;
+  }
+  .calc-lcd {
+    min-height: 7.75rem;
+  }
+  .calc-keypad {
+    --calc-keypad-gap: 0.62rem;
+    --calc-keypad-margin: 0.85rem;
+  }
+  .calc-key-block {
+    --calc-key-row-gap: 0.42rem;
+    padding: 0.34rem 0.28rem;
+  }
+  .calc-key {
+    min-height: 2.25rem;
+  }
+  .calc-key--numeric,
+  .calc-key--blue {
+    min-height: 2.5rem;
   }
 }
 

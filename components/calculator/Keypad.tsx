@@ -19,8 +19,10 @@ import type { CalculatorAction } from "@/types";
 const BLOCK_STYLE = (columns: number): React.CSSProperties => ({
   display: "grid",
   gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-  columnGap: "0.3rem",
-  rowGap: "0.34rem",
+  // The fallbacks keep the grid intact even with no stylesheet; the custom properties let the
+  // responsive rules retune the spacing without this markup having to know about breakpoints.
+  columnGap: "var(--calc-key-col-gap, 0.3rem)",
+  rowGap: "var(--calc-key-row-gap, 0.34rem)",
   alignItems: "stretch",
 });
 
@@ -121,8 +123,8 @@ export function Keypad({ shift, alpha, onAction }: KeypadProps) {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "0.5rem",
-        marginTop: "0.7rem",
+        gap: "var(--calc-keypad-gap, 0.5rem)",
+        marginTop: "var(--calc-keypad-margin, 0.7rem)",
       }}
     >
       <div
