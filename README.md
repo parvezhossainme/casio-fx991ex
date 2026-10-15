@@ -18,13 +18,18 @@ Everything runs locally in the browser — no backend, account, database, API ke
   Table · Equation/Func · Inequality · Ratio.
 - **Natural-textbook display** — stacked fractions, superscript powers, radicals with an overline,
   logarithm bases, integral/summation bounds — rendered structurally, never as a plain string.
-- **Physical keypad** with SHIFT/ALPHA/HYP legends, colour-coded secondary functions, cursor
-  editing (DEL / AC / INS), REPLAY history and a pale-green LCD with status indicators.
-- **Full physical-keyboard support** and a scrollable history, with preferences persisted to
+- **A keypad that matches the device**: six narrow function columns over five wider numeric columns,
+  pale-grey numeric keys with dark legends, blue AC/DEL, a round replay pad, and yellow SHIFT / red
+  ALPHA / blue Base-N legends printed above and beside the keys. The page shows the calculator and
+  nothing else.
+- **Device-level functions**: MENU (SHIFT for SETUP), OPTN, CALC (SHIFT for SOLVE), S⇔D, ENG, x⁻¹,
+  ENG/Pol/Rec/nPr/nCr/Rnd/Ran#/RanInt shift functions, `×10ˣ`, `°′″` degree-minute-second conversion,
+  M+ memory, and CONST (SHIFT + 7) / CONV (SHIFT + 8) tools.
+- **Full physical-keyboard support**, with preferences and calculation history persisted to
   `localStorage`.
 - **A typed, React-free math engine** with a tolerant parser, explicit Casio-style error taxonomy,
   10-digit display formatting, exact-form (S⇔D) handling, and numerical ∫ / d-dx / Σ / SOLVE.
-- **101 unit tests and 36 end-to-end tests** passing across desktop and mobile viewports.
+- **119 unit tests and 52 end-to-end tests** passing across desktop and mobile viewports.
 
 ## Getting started
 
@@ -55,7 +60,7 @@ Open <http://localhost:3000>. Press `7 × 8 =` on the keypad (or type it) — yo
 ```
 app/                     routes, layout, global styles
 components/
-  calculator/            body, LCD, keypad, keys, MODE/SETUP menus, shell
+  calculator/            case, LCD, keypad, keys, directional pad, MENU/SETUP/CONST/CONV dialogs
   display/               natural-textbook expression renderer
   modes/                 one workspace panel per mode
   ui/                    shadcn/ui primitives
@@ -63,6 +68,7 @@ lib/
   engine/                tokens, parser, serializer, evaluator, formatting, numerics
   modes/                 pure logic for the mode-specific features
   keyboard/              keymap registry, physical-keyboard listener, input routing
+  constants/             scientific constants and unit-conversion data
 hooks/                   calculator reducer with localStorage persistence
 types/                   shared application types
 tests/unit/              Vitest tests

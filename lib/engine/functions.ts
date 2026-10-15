@@ -108,6 +108,13 @@ export const FUNCTIONS: Record<string, FunctionSpec> = {
     arity: 2,
     kind: "plain",
   },
+  round: {
+    name: "round",
+    label: "Rnd",
+    mathjs: "round",
+    arity: 1,
+    kind: "plain",
+  },
   nPr: {
     name: "nPr",
     label: "P",

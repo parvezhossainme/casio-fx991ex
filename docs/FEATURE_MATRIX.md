@@ -74,8 +74,8 @@ Status legend — **a button existing is not proof a feature works**:
 | LCD status indicators (SHIFT, ALPHA, HYP, DEG/RAD/GRA, Norm/Fix/Sci/Eng, memory M) | ✅     |                                                                                         |
 | SHIFT / ALPHA / HYP state and colour-coded legends                                 | ✅     |                                                                                         |
 | Cursor editing with ←/→, DEL, AC, INS/overwrite mode                               | ✅     |                                                                                         |
-| MODE menu with all 12 modes                                                        | ✅     |                                                                                         |
-| SETUP menu (angle unit, number format, insert mode, clear history)                 | ✅     |                                                                                         |
+| MENU with all 12 modes                                                             | ✅     | Opened by the MENU key; SHIFT + MENU is SETUP                                           |
+| SETUP dialog (angle unit, number format, insert mode, clear history)               | ✅     | Also reachable from OPTN                                                                |
 | Physical keyboard input                                                            | ✅     | Digits, operators, parentheses, Enter, Backspace, Escape, arrows, plus letter shortcuts |
 | On-screen keypad drives form-based mode inputs                                     | ✅     | Writes to the focused field                                                             |
 | Responsive layout (desktop + mobile)                                               | ✅     | Playwright projects for Desktop Chrome and Pixel 7                                      |
@@ -84,13 +84,43 @@ Status legend — **a button existing is not proof a feature works**:
 | Works with JavaScript disabled                                                     | ⬜     | Calculator requires JS (as expected for a client-only app)                              |
 | Offline / installable PWA                                                          | ⬜     | Not configured                                                                          |
 
+## Case, keypad and device keys
+
+| Feature                                                                         | Status | Notes                                                       |
+| ------------------------------------------------------------------------------- | ------ | ----------------------------------------------------------- |
+| Dark case with rounded corners, brand lettering and a solar strip               | ✅     | Case aspect ratio ≈ 0.51 (device ≈ 0.47)                    |
+| Dot-matrix-style LCD (pale grey-green) with annunciators                        | ✅     | Status line: SHIFT, ALPHA, HYP, M, format, angle unit, mode |
+| Two-block keypad: 6 narrow function columns over 5 wider numeric columns        | ✅     | Asserted by a unit test                                     |
+| Round 4-way replay pad occupying a 2×2 area                                     | ✅     | ↑ ↓ ← →, plus REPLAY via the physical arrow keys            |
+| Pale-grey numeric keys with dark legends; dark function keys with light legends | ✅     | Matches the device's two-tone front                         |
+| Blue AC and DEL keys                                                            | ✅     | The device's only blue keys                                 |
+| Yellow SHIFT, red ALPHA and blue Base-N legends printed on the case             | ✅     | 26 SHIFT, 10 ALPHA and 4 blue legends                       |
+| MENU, ON, OPTN, CALC, ENG, STO, S⇔D, `x` and the nine function/log/trig keys    | ✅     | Every key has a working action                              |
+| CONST (SHIFT + 7) — scientific constants                                        | ✅     | 23 constants, searchable, inserts the value                 |
+| CONV (SHIFT + 8) — unit conversion                                              | ✅     | 9 categories incl. temperature offsets                      |
+| RESET (SHIFT + 9)                                                               | ✅     | Clears variables, history and preferences                   |
+| `°′″` degrees/minutes/seconds conversion                                        | ✅     | Converts the displayed answer                               |
+| M+ (ALPHA + ENG)                                                                | ✅     | Adds the answer to memory M                                 |
+| ENG display notation                                                            | ✅     | From the ENG key                                            |
+| Pol / Rec (SHIFT + × and SHIFT + ÷)                                             | ✅     | Insert the two-argument functions                           |
+| nPr / nCr (SHIFT + + and SHIFT + −)                                             | ✅     |                                                             |
+| Rnd, Ran#, RanInt, %, ≈ (SHIFT legends)                                         | ✅     | `≈` is the S⇔D decimal toggle                               |
+| QR code display (SHIFT + OPTN)                                                  | ⬜     | Not implemented; no legend printed                          |
+| UNDO (ALPHA + DEL), CONST/CONV lists in-device                                  | ⬜     | Not implemented; no legend printed                          |
+
 ## Known divergences from the physical device
 
 - The device's **firmware is not emulated**; results come from mathjs and our numeric routines.
-- **Key legends and SHIFT/ALPHA assignments are close but not identical.** STO and RCL are given
-  their own keys; the `°′″` key is used as the DRG angle-unit key; SHIFT/ALPHA variants are only
-  defined where a function is actually implemented.
+- **Some SHIFT/ALPHA legends differ from the device.** `x`, `y` and `M` are assigned to the `x`,
+  `(` and ENG keys respectively; the `d/c` (mixed/improper) legend is omitted; only legends whose
+  function is actually implemented are printed.
+- **The `°′″` key converts a result to degrees/minutes/seconds** rather than entering DMS literals;
+  the angle unit itself is changed in SETUP, as on the device.
+- **The `xⁿ` key is the general power** (`^`), with `ʸ√x` on SHIFT; the device's separate `x□`
+  template behaves the same way for our purposes.
 - **Base-N, Matrix, Vector, Statistics, Distribution, Equation, Inequality and Ratio** use
-  form/workspace panels rather than reproducing the exact key-by-key screen sequence.
+  form/workspace panels below the calculator rather than reproducing the exact key-by-key screen
+  sequence. Those panels appear only while their mode is active, so the Calculate screen shows the
+  calculator alone.
 - The display shows a **10-digit mantissa**, matching the device's display width, but internal
   arithmetic is IEEE-754 double precision rather than the device's internal 15-digit BCD.

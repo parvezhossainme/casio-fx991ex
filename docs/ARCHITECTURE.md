@@ -103,17 +103,38 @@ supported state, not an error.
 
 ## Keyboard
 
-`lib/keyboard/keymap.ts` is the single source of truth for the physical layout: every key declares
-its legends (primary / SHIFT / ALPHA / sub) and its actions. `resolveKeyAction` picks the variant
-from the SHIFT/ALPHA state. `usePhysicalKeyboard` registers **one** global listener in the shell;
-`keyboardEventToAction` is a pure function (unit-tested), ignores modified keys so browser
-shortcuts keep working, and ignores events whose target is a text field.
+`lib/keyboard/keymap.ts` is the single source of truth for the physical layout. It models two blocks,
+the way the device is built:
+
+- **Function block** — 5 rows × 6 narrow columns (`FUNCTION_KEYS`, `FUNCTION_COLUMNS = 6`). The
+  `SHIFT` and `ALPHA` modifier keys sit in row 1 next to a 2×2 `DIRECTIONAL_PAD` (rows 1–2,
+  columns 3–4), which is rendered as a single round pad with four clickable zones.
+- **Numeric block** — 4 rows × 5 wider columns (`NUMERIC_KEYS`, `NUMERIC_COLUMNS = 5`).
+
+Every key carries `row`/`col` placement plus its printed legends — `label` (on the cap),
+`shiftLabel` (yellow, printed on the case above), `alphaLabel` (red, above) and `blueLabel` (Base-N
+notation, beside) — and a `tone` that selects its look (`function`, `numeric`, `blue` for AC/DEL,
+`modifier-shift`, `modifier-alpha`). `KeyTile` renders the case legends, `Key` renders the cap.
+`resolveKeyAction` picks the SHIFT/ALPHA variant; keys without a variant fall back to `primary`.
+
+`usePhysicalKeyboard` registers **one** global listener in the shell; `keyboardEventToAction` is a
+pure function (unit-tested), ignores modified keys so browser shortcuts keep working, and ignores
+events whose target is a text field.
 
 Form-based modes expose plain inputs. When such a mode is active the keypad writes into the
 focused field (`lib/keyboard/route.ts`) instead of the expression buffer.
 
+## Constants and conversions
+
+`lib/constants/physical.ts` holds the scientific constants surfaced by CONST (SHIFT + 7) and
+`lib/constants/conversions.ts` the unit tables behind CONV (SHIFT + 8). Both are plain data plus
+pure helpers, so they are unit-tested without a DOM. Selected values are inserted into the display
+via `numberToTokens`, which emits `×10ˣ` tokens for extreme magnitudes.
+
 ## Modes
 
-Each mode is a pure module in `lib/modes/` plus a panel in `components/modes/`. The panel is
-mounted by `ModeHost` from the MODE menu. Expression-based modes (Calculate, Complex, Base-N,
-Table) drive the shared buffer; the rest are workspace panels with their own inputs.
+Each mode is a pure module in `lib/modes/` plus a panel in `components/modes/`. The panel is mounted
+by `ModeHost`. Expression-based modes (Calculate, Complex, Table) drive the shared buffer; the rest
+are workspace panels with their own inputs, shown below the calculator only while that mode is
+active — so the Calculate screen is just the calculator, as on the device. The MODE/MENU, SETUP,
+CONST and CONV surfaces are dialogs opened from the keypad.

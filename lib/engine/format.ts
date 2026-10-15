@@ -144,3 +144,32 @@ export function formatLabel(format: DisplayFormat): string {
       return "Eng";
   }
 }
+
+/**
+ * Convert a decimal angle into the device's degrees/minutes/seconds notation, e.g. 1.5 → 1°30′0″.
+ */
+export function toDegreesMinutesSeconds(
+  value: number,
+  format: DisplayFormat = DEFAULT_FORMAT,
+): string {
+  if (!Number.isFinite(value)) throw mathError("Result is not a finite number");
+  const sign = value < 0 ? "-" : "";
+  const absolute = Math.abs(value);
+
+  const degrees = Math.floor(absolute);
+  const minutesFloat = (absolute - degrees) * 60;
+  let minutes = Math.floor(minutesFloat);
+  let seconds = (minutesFloat - minutes) * 60;
+  seconds = Number(seconds.toFixed(6));
+  if (seconds >= 60) {
+    seconds -= 60;
+    minutes += 1;
+  }
+  let totalDegrees = degrees;
+  if (minutes >= 60) {
+    minutes -= 60;
+    totalDegrees += 1;
+  }
+
+  return `${sign}${totalDegrees}°${minutes}′${formatNumber(seconds, format).mantissa}″`;
+}

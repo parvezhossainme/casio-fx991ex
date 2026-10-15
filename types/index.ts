@@ -54,7 +54,7 @@ export const MODES: ModeInfo[] = [
     name: "Base-N",
     shortName: "Base-N",
     description: "Binary, octal, decimal, hexadecimal",
-    expressionBased: true,
+    expressionBased: false,
   },
   {
     id: "matrix",
@@ -145,6 +145,10 @@ export type ControlId =
   | "down"
   | "mode"
   | "setup"
+  | "optn"
+  | "const"
+  | "conv"
+  | "reset"
   | "on"
   | "calc"
   | "solve"
@@ -153,6 +157,8 @@ export type ControlId =
   | "rcl"
   | "drg"
   | "ins"
+  | "mplus"
+  | "dms"
   | "off";
 
 export interface HistoryEntry {

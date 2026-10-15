@@ -13,6 +13,7 @@ import {
   compileInX,
   formatResult,
   solve,
+  toDegreesMinutesSeconds,
   tokensToPlainText,
   type EvalResult,
 } from "@/lib/engine";
@@ -315,6 +316,50 @@ export function reducer(
             alpha: false,
           };
 
+        case "mplus":
+          return {
+            ...state,
+            variables: {
+              ...state.variables,
+              M: (state.variables.M ?? 0) + state.ans,
+            },
+            shift: false,
+            alpha: false,
+          };
+
+        case "dms":
+          try {
+            return {
+              ...state,
+              result: toDegreesMinutesSeconds(state.ans, state.format),
+              resultAlternate: null,
+              showingAlternate: false,
+              error: null,
+              shift: false,
+              alpha: false,
+            };
+          } catch (error) {
+            return {
+              ...state,
+              error: isCalculatorError(error) ? error.code : "Math Error",
+              shift: false,
+              alpha: false,
+            };
+          }
+
+        case "reset":
+          return {
+            ...initialState,
+            history: [],
+            hydrated: state.hydrated,
+            mode: state.mode,
+          };
+
+        case "const":
+        case "conv":
+          // Handled by the shell, which opens the corresponding dialog.
+          return { ...state, shift: false, alpha: false };
+
         case "on":
           return {
             ...state,
@@ -327,6 +372,7 @@ export function reducer(
 
         case "off":
         case "mode":
+        case "optn":
         case "setup":
           return { ...state, shift: false, alpha: false };
 

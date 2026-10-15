@@ -28,6 +28,11 @@ export function LCD({
 
   return (
     <div className="calc-lcd-shell">
+      <div className="calc-solar" aria-hidden="true">
+        {Array.from({ length: 5 }, (_, index) => (
+          <span key={index} className="calc-solar-cell" />
+        ))}
+      </div>
       <div className="calc-lcd" data-testid="lcd">
         <div className="calc-status" aria-hidden="true">
           <span className="calc-status-flag" data-active={state.shift}>
@@ -55,7 +60,7 @@ export function LCD({
             <Expression tokens={state.tokens} cursor={state.cursor} />
           ) : (
             <span className="calc-hint" data-testid="mode-hint">
-              {mode.name} mode
+              {mode.name}
             </span>
           )}
         </div>

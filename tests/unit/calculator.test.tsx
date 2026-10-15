@@ -1,7 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/react";
 import { Expression } from "@/components/display/Expression";
-import { KEYS, keyById } from "@/lib/keyboard/keymap";
+import {
+  DIRECTIONAL_PAD,
+  FUNCTION_COLUMNS,
+  FUNCTION_KEYS,
+  KEYS,
+  NUMERIC_COLUMNS,
+  NUMERIC_KEYS,
+  keyById,
+} from "@/lib/keyboard/keymap";
 import { resolveKeyAction } from "@/components/calculator/Key";
 import { keyboardEventToAction } from "@/lib/keyboard/usePhysicalKeyboard";
 import { initialState, reducer } from "@/hooks/useCalculator";
@@ -27,8 +35,39 @@ describe("keymap", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("lays the keypad out as ten rows of five keys", () => {
-    expect(KEYS.length).toBe(50);
+  it("mirrors the device: six narrow function columns over five wider numeric columns", () => {
+    expect(FUNCTION_KEYS).toHaveLength(26);
+    expect(NUMERIC_KEYS).toHaveLength(20);
+    expect(FUNCTION_COLUMNS).toBe(6);
+    expect(NUMERIC_COLUMNS).toBe(5);
+
+    for (const key of FUNCTION_KEYS) {
+      expect(key.col).toBeGreaterThanOrEqual(1);
+      expect(key.col).toBeLessThanOrEqual(FUNCTION_COLUMNS);
+    }
+    for (const key of NUMERIC_KEYS) {
+      expect(key.col).toBeGreaterThanOrEqual(1);
+      expect(key.col).toBeLessThanOrEqual(NUMERIC_COLUMNS);
+    }
+  });
+
+  it("leaves the directional pad area free of keys", () => {
+    const occupied = FUNCTION_KEYS.some(
+      (key) => key.row <= 2 && key.col >= 3 && key.col <= 4,
+    );
+    expect(occupied).toBe(false);
+    expect(DIRECTIONAL_PAD.width).toBe(2);
+    expect(DIRECTIONAL_PAD.height).toBe(2);
+  });
+
+  it("prints the device's colour-coded legends", () => {
+    expect(keyById("sin")!.shiftLabel).toBe("sin⁻¹");
+    expect(keyById("sin")!.alphaLabel).toBe("D");
+    expect(keyById("square")!.blueLabel).toBe("DEC");
+    expect(keyById("ac")!.shiftLabel).toBe("OFF");
+    expect(keyById("del")!.tone).toBe("blue");
+    expect(keyById("ac")!.tone).toBe("blue");
+    expect(keyById("7")!.tone).toBe("numeric");
   });
 
   it("gives every key a label and a primary action", () => {
@@ -57,10 +96,10 @@ describe("keymap", () => {
   });
 
   it("falls back to the primary action when a variant is not defined", () => {
-    const seven = keyById("7")!;
-    expect(resolveKeyAction(seven, true, true)).toEqual({
+    const four = keyById("4")!;
+    expect(resolveKeyAction(four, true, true)).toEqual({
       type: "insertToken",
-      token: numberToken("7"),
+      token: numberToken("4"),
     });
   });
 });

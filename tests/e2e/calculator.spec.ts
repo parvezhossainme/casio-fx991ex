@@ -7,7 +7,7 @@ async function pressKeys(page: Page, ids: string[]): Promise<void> {
 }
 
 async function openMode(page: Page, mode: string): Promise<void> {
-  await page.locator('[data-key="mode"]').click();
+  await page.locator('[data-key="menu"]').click();
   await page.locator(`[data-mode="${mode}"]`).click();
 }
 
@@ -51,14 +51,21 @@ test.describe("calculate mode", () => {
   });
 
   test("accepts input from the physical keyboard", async ({ page }) => {
+    // Interact once first: a click can only land after the shell has hydrated.
+    await page.locator('[data-key="ac"]').click();
+    await expect(page.getByTestId("expression")).toHaveText("");
     await page.keyboard.type("12+30");
     await page.keyboard.press("Enter");
     await expect(page.getByTestId("result-value")).toHaveText("42");
   });
 
-  test("keeps a scrollable history", async ({ page }) => {
+  test("replays the previous calculation with the replay pad", async ({
+    page,
+  }) => {
     await pressKeys(page, ["2", "add", "2", "equals"]);
-    await expect(page.getByTestId("history-list")).toContainText("2+2");
+    await pressKeys(page, ["ac"]);
+    await pressKeys(page, ["pad-up"]);
+    await expect(page.getByTestId("expression")).toHaveText("2+2");
   });
 
   test("switches between decimal and fraction with S⇔D", async ({ page }) => {
@@ -113,7 +120,7 @@ test.describe("modes", () => {
 
   test("generates a table from f(X)", async ({ page }) => {
     await openMode(page, "table");
-    await pressKeys(page, ["alpha", "recip", "square"]);
+    await pressKeys(page, ["xvar", "square"]);
     await page
       .getByTestId("mode-panel")
       .getByRole("button", { name: "Generate table" })
@@ -185,5 +192,71 @@ test.describe("layout", () => {
     await expect(page.getByTestId("result-value")).toHaveText("3");
 
     expect(problems).toEqual([]);
+  });
+
+  test("shows only the calculator on the default screen", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByTestId("lcd")).toBeVisible();
+    await expect(page.getByTestId("mode-panel")).toHaveCount(0);
+    await expect(page.locator("h1")).toHaveCount(0);
+    await expect(page.getByTestId("history-list")).toHaveCount(0);
+  });
+
+  test("lays the keypad out as the physical device does", async ({ page }) => {
+    await page.goto("/");
+    for (const id of [
+      "shift",
+      "alpha",
+      "menu",
+      "on",
+      "optn",
+      "calc",
+      "7",
+      "del",
+      "ac",
+      "equals",
+    ]) {
+      await expect(page.locator(`[data-key="${id}"]`)).toBeVisible();
+    }
+    await expect(page.locator('[data-key="pad-up"]')).toBeVisible();
+  });
+});
+
+test.describe("device functions", () => {
+  test("opens SETUP with SHIFT + MENU", async ({ page }) => {
+    await page.goto("/");
+    await pressKeys(page, ["shift", "menu"]);
+    await expect(page.getByText("Angle unit")).toBeVisible();
+  });
+
+  test("inserts a scientific constant from SHIFT + 7", async ({ page }) => {
+    await page.goto("/");
+    await pressKeys(page, ["shift", "7"]);
+    await page.getByRole("button", { name: /Speed of light/ }).click();
+    await pressKeys(page, ["equals"]);
+    await expect(page.getByTestId("result-value")).toContainText("299792458");
+  });
+
+  test("converts units from SHIFT + 8", async ({ page }) => {
+    await page.goto("/");
+    await pressKeys(page, ["shift", "8"]);
+    await page.getByLabel("Value to convert").fill("1");
+    // Default: 1 mm → cm
+    await expect(page.getByTestId("conversion-result")).toHaveText("0.1");
+  });
+
+  test("switches to engineering notation with ENG", async ({ page }) => {
+    await page.goto("/");
+    await pressKeys(page, ["eng"]);
+    await pressKeys(page, ["1", "2", "3", "4", "5", "equals"]);
+    await expect(page.getByTestId("lcd")).toContainText("Eng");
+  });
+
+  test("adds to memory with STO and shows the M indicator", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await pressKeys(page, ["5", "equals", "sto", "alpha", "eng"]);
+    await expect(page.getByTestId("lcd")).toContainText("M");
   });
 });

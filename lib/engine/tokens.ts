@@ -148,3 +148,34 @@ export function tokensToPlainText(tokens: Token[]): string {
   }
   return out;
 }
+
+/**
+ * Convert a JavaScript number into input tokens, using the ×10ˣ operator for very large or
+ * very small magnitudes so the value stays readable on the LCD.
+ */
+export function numberToTokens(value: number): Token[] {
+  if (!Number.isFinite(value)) return [];
+
+  const digits = (text: string): Token[] =>
+    [...text].map((char) => ({ kind: "number", text: char }) as Token);
+
+  if (Number.isInteger(value) && Math.abs(value) < 1e10) {
+    const negative = value < 0;
+    const list: Token[] = negative ? [opToken("-")] : [];
+    return [...list, ...digits(String(Math.abs(value)))];
+  }
+
+  const [mantissaText, exponentText] = value.toExponential().split("e");
+  const mantissa = mantissaText ?? "0";
+  const exponent = Number(exponentText ?? "0");
+  const negative = mantissa.startsWith("-");
+
+  const list: Token[] = negative ? [opToken("-")] : [];
+  list.push(...digits(mantissa.replace("-", "")));
+  if (exponent !== 0) {
+    list.push(opToken("E"));
+    if (exponent < 0) list.push(opToken("-"));
+    list.push(...digits(String(Math.abs(exponent))));
+  }
+  return list;
+}
